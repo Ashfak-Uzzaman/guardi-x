@@ -126,7 +126,8 @@ class FirebaseCloudStorage {
       required String phone,
       required bool isAdmin}) async {
     try {
-      await users.add({
+      String userId = AuthService.firebase().currentUser!.id;
+      await users.doc(userId).set({
         userNameFieldName: userName,
         userEmailFieldName: email,
         userPhoneFieldName: phone,

@@ -21,11 +21,12 @@ const policeStationFieldName = 'police_station';
 const reportStatusFieldName = 'report_status';
 
 // Users
-const userCollectionName = 'Users';
+const userCollectionName = 'users';
 const userIdFieldName = 'user_id';
 const userNameFieldName = 'user_name';
 const userEmailFieldName = 'email';
 const userPhoneFieldName = 'phone';
+
 const userIsAdminFieldName = 'is_admin';
 
 // Chat Rooms
