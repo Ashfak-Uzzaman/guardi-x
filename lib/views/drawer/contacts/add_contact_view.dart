@@ -77,7 +77,7 @@ class _AddContactsViewState extends State<AddContactsView> {
           if (share) {
             //sendBackgroundMessage(context, phone, 'Emergency Message');
             sendMessage(context, phone,
-                'Download and Install \'Gurdi-X\'\nhttps://github.com/Ashfak-Uzzaman/guardi-x');
+                'Download and Install \'Guardi-X\'\nhttps://github.com/Ashfak-Uzzaman/guardi-x');
           }
         }
       } catch (e) {
