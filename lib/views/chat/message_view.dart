@@ -158,10 +158,8 @@ class _MessageViewState extends State<MessageView> {
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: widget.chatRoomDocRef
-                  .collection(messageCollectionName)
-                  .orderBy(timestampFieldName, descending: false)
-                  .snapshots(),
+              stream: FirebaseCloudStorage()
+                  .getMessagesStream(widget.chatRoomDocRef),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -240,12 +238,12 @@ class _MessageViewState extends State<MessageView> {
               decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(30.0),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey,
                     spreadRadius: 1,
                     blurRadius: 4,
-                    offset: const Offset(0, 2),
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),

@@ -30,15 +30,21 @@ class _ChatViewState extends State<ChatView> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddContactsView()),
+                MaterialPageRoute(
+                    builder: (context) => const AddContactsView()),
               );
-            }, 
-            icon: const FaIcon(FontAwesomeIcons.userPlus, size: 20, color: whiteColor,),
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.userPlus,
+              size: 20,
+              color: whiteColor,
+            ),
           ),
         ],
         centerTitle: true,
         backgroundColor: midnightBlueColor,
       ),
+      // This widget ( StreamBuilder<DocumentSnapshot>) listens to a real-time stream of a Firestore document.
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseCloudStorage().getChatsStream(trustedContactDocId),
         builder: (context, trustedContactSnapshot) {
@@ -47,8 +53,10 @@ class _ChatViewState extends State<ChatView> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (!trustedContactSnapshot.hasData ||
+          if (!trustedContactSnapshot
+                  .hasData || //  not fetched data from Firestore
               !trustedContactSnapshot.data!.exists) {
+            // !trustedContactSnapshot.data!.exists: If the document itself does not exist in Firestore.
             return const Center(child: Text("No Trusted Contacts"));
           }
 
@@ -109,7 +117,8 @@ class _ChatViewState extends State<ChatView> {
                             if (!snapshot.hasData) {
                               return const SizedBox.shrink();
                             }
-                            return snapshot.data!;
+                            return snapshot
+                                .data!; // If the future completes but returns null, show an empty widget.
                           },
                         );
                       },

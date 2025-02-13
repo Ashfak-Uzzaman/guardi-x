@@ -38,8 +38,21 @@ class FirebaseCloudStorage {
   Stream<QuerySnapshot> getChatQueryStream(List<dynamic> chatRefs) {
     return FirebaseFirestore.instance
         .collection(chatsCollectionName)
-        .where(FieldPath.documentId, whereIn: chatRefs)
-        .orderBy('timestamp', descending: true)
+        .where(
+            FieldPath
+                .documentId, // FieldPath.documentId is used to query by document ID
+            whereIn:
+                chatRefs) // whereIn allows fetching multiple documents at once // has a limit by google pagla
+        .orderBy(timestampFieldName,
+            descending: true) // Descending order (newest first)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getMessagesStream(DocumentReference chatRoomDocRef) {
+    return chatRoomDocRef
+        .collection(messageCollectionName) // Access the messages collection
+        .orderBy(timestampFieldName,
+            descending: false) //Ascending order (oldest first)
         .snapshots();
   }
 
@@ -229,7 +242,7 @@ Performance: Reduces Firestore billing cost by minimizing the number of writes.
       try {
         print('bitor -1');
         await trustedContacts.doc(userId).update({
-          'chats_reference': FieldValue.arrayUnion(
+          chatsReferenceFieldName: FieldValue.arrayUnion(
               [chatRoomReference]), // Add chatRoomId to array
         });
         print('bitor -2');
@@ -239,7 +252,7 @@ Performance: Reduces Firestore billing cost by minimizing the number of writes.
     } else {
       print('hi userid = $userId');
       await trustedContacts.doc(userId).set({
-        'chats_reference': FieldValue.arrayUnion([
+        chatsReferenceFieldName: FieldValue.arrayUnion([
           chatRoomReference
         ]), // Add chatRoomId to array //  I want that if the array already contains thus 'chatRoomReference' not to add again and return false. how?
       });
@@ -252,13 +265,13 @@ Performance: Reduces Firestore billing cost by minimizing the number of writes.
     if (docSnapshot.exists) {
       print('hello userid = $userId');
       await trustedContacts.doc(userId).update({
-        'chats_reference': FieldValue.arrayUnion(
+        chatsReferenceFieldName: FieldValue.arrayUnion(
             [chatRoomReference]), // Add chatRoomId to array
       });
     } else {
       print('hi userid = $userId');
       await trustedContacts.doc(userId).set({
-        'chats_reference': FieldValue.arrayUnion(
+        chatsReferenceFieldName: FieldValue.arrayUnion(
             [chatRoomReference]), // Add chatRoomId to array
       });
     }
@@ -269,11 +282,12 @@ Performance: Reduces Firestore billing cost by minimizing the number of writes.
     DocumentSnapshot docSnapshot = await trustedContacts.doc(userId).get();
 
     if (docSnapshot.exists) {
-      List<dynamic> chatsReference = docSnapshot['chats_reference'] ?? [];
+      List<dynamic> chatsReference = docSnapshot[chatsReferenceFieldName] ?? [];
 
       // Converting DocumentReference objects to paths
       List<String> chatPaths = chatsReference
-          .map((ref) => (ref as DocumentReference).path) // Extract path only
+          .map((ref) => (ref as DocumentReference)
+              .path) // Extract path only. // map used to iterate over the list of DocumentReference objects
           .toList();
 /*
       for (String path in chatPaths) {
@@ -328,11 +342,12 @@ Performance: Reduces Firestore billing cost by minimizing the number of writes.
     List<String> contacts = [];
 
     if (docSnapshot.exists) {
-      List<dynamic> chatsReference = docSnapshot['chats_reference'] ?? [];
+      List<dynamic> chatsReference = docSnapshot[chatsReferenceFieldName] ?? [];
 
       // Converting DocumentReference objects to paths
       List<String> chatPaths = chatsReference
-          .map((ref) => (ref as DocumentReference).path) // Extract path only
+          .map((ref) => (ref as DocumentReference)
+              .path) // map used to iterate over the list of DocumentReference objects./ hre it Extract path only fom the ref as DocumentReference
           .toList();
 
       for (String path in chatPaths) {

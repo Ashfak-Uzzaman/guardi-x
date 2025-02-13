@@ -49,7 +49,7 @@ const isChatReadFieldName = 'is_read';
 const isMessageSeenFieldName = 'is_seen';
 // trusted contacts of current user
 const trustedContactCollectionName = 'trusted_contacts';
-
+const chatsReferenceFieldName = 'chats_reference';
 //  chats
 const chatsCollectionName = 'chats';
 const chatRoomReferenceFieldName = 'chat_room_reference';

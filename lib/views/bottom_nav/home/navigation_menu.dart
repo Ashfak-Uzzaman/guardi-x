@@ -35,6 +35,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     _shakeDetector = ShakeDetector(
       onShake: () async {
         shaked = true;
+        //print('helllo');
         while (await LocalStorage.getEmergencyStatus() ?? true) {
           List<String> trustedContacts =
               await LocalStorage.getTrustedContacts();
