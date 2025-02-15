@@ -1,7 +1,7 @@
 # Guardi-X 🚀
 ### A Modern Security Solution for Personal and Community Safety
 
-𝐆𝐮𝐚𝐫𝐝𝐢-𝐗 is an ultimate security app built with 'Flutter' to help users share locations online and offline in emergencies by shaking the phone, real-time chat, report crimes and accident, find missing persons or items, access legal support, finding important locations, make direct phone call to access government services and Bangladeshi law details for legal awareness.
+𝐆𝐮𝐚𝐫𝐝𝐢-𝐗 is an ultimate security app built with 'Flutter' to help users **share locations online** and **offline** in **emergencies** by **shaking** the phone, **real-time chat**, **report crimes and accident**, **find missing persons or items**, **access legal support**, **finding important locations**, **make direct phone call** to access **government services** and **Bangladeshi law details** for legal awareness.
 
 ---
 ## 📌 Key Features:
@@ -44,6 +44,11 @@
   <img src="assets/screenshots/ongoing_incidents.jpg" alt="Ongoing Incidents View" width="200" style="margin: 10px;"/>
   <img src="assets/screenshots/comment.jpg" alt="Comments View" width="200" style="margin: 10px;"/>
   <img src="assets/screenshots/chat.jpg" alt="Chat View" width="200" style="margin: 10px;"/>
+</p>
+<p align="center">
+  <img src="assets/screenshots/sos.jpg" alt="SOS View" width="200" style="margin: 10px;"/>
+  <img src="assets/screenshots/enable_emergency.jpg" alt="Enable Emergency View" width="200" style="margin: 10px;"/>
+  <img src="assets/screenshots/offline_message.jpg" alt="Offline Message View" width="200" style="margin: 10px;"/>
 </p>
 
 
